@@ -17,4 +17,17 @@ class TestMaxProfit(unittest.TestCase):
         result = self.solution.maxProfit([2, 4, 1, 7])
         self.assertEqual(result, 6)
 
-    def 
+    def test_minimum_length(self):
+        result = self.solution.maxProfit([1, 2])
+        self.assertEqual(result, 1)
+        
+        result = self.solution.maxProfit([4, 3])
+        self.assertEqual(result, 0)
+    
+    def test_all_same_price(self):
+        result = self.solution.maxProfit([4, 4, 4, 4])
+        self.assertEqual(result, 0)
+
+
+if __name__ == '__main__':
+    unittest.main()
