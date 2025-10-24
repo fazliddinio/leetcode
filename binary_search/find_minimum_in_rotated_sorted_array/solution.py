@@ -1,0 +1,15 @@
+# LeetCode 153: Find Minimum in Rotated Sorted Array
+# Time: O(log n), Space: O(1)
+
+class Solution:
+    def findMin(self, nums: list[int]) -> int:
+        l, r = 0, len(nums) - 1
+        
+        while l < r:
+            mid = (l + r) // 2
+            if nums[mid] > nums[r]:
+                l = mid + 1
+            else:
+                r = mid
+        
+        return nums[l]
