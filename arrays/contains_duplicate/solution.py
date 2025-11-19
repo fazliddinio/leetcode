@@ -9,3 +9,7 @@ class Solution:
                 return True
             seen.add(num)
         return False
+    
+    # Time: O(n), Space: O(n)
+    def contains_duplicate(nums):
+        return len(nums) != len(set(nums))
