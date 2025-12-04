@@ -1,12 +1,17 @@
-from typing import List
+import pytest
+from .solution import Solution, SolutionCopy
 
-
-class Solution:
-    def moveZeroes(self, nums: List[int]) -> int:
-        
-        left = 0
-        
-        for right in range(len(nums)):
-            if nums[right] != 0:
-                nums[left], nums[right] = nums[right], nums[left]
-                left += 1
+@pytest.mark.parametrize("SolutionClass", [Solution, SolutionCopy])
+@pytest.mark.parametrize(
+    "nums, expected",
+    [
+        ([0, 1, 0, 3, 12], [1, 3, 12, 0, 0]),
+        ([0], [0]),
+        ([1, 2, 3], [1, 2, 3]),
+    ],
+)
+def test_move_zeroes(SolutionClass, nums, expected):
+    solution = SolutionClass()
+    nums_copy = list(nums)
+    solution.moveZeroes(nums_copy)
+    assert nums_copy == expected
