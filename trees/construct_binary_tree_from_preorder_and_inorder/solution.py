@@ -1,0 +1,5 @@
+# Solution for construct_binary_tree_from_preorder_and_inorder
+
+class Solution:
+    pass
+
