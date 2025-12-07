@@ -45,6 +45,8 @@ class Solution:
                 l += 1
         
         return 0 if res == float("inf") else int(res)
+    
+    
 
 class SolutionBruteForce:
     """
