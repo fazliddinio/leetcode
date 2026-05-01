@@ -4,7 +4,9 @@
 class Solution:
     def merge(self, nums1: list[int], m: int, nums2: list[int], n: int) -> None:
         # start from end
-        p1, p2, p = m - 1, n - 1, m + n - 1
+        p1 = m - 1
+        p2 = n - 1
+        p = m + n - 1
         
         while p2 >= 0:
             if p1 >= 0 and nums1[p1] > nums2[p2]:
