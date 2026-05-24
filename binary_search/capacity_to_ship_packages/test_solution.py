@@ -1,8 +1,24 @@
 import pytest
-from .solution import Solution
+from solution import Solution
 
-def test_ship_within_days():
-    s = Solution()
-    assert s.shipWithinDays([1,2,3,4,5,6,7,8,9,10], 5) == 15
-    assert s.shipWithinDays([3,2,2,4,1,4], 3) == 6
-    assert s.shipWithinDays([1,2,3,1,1], 4) == 3
+@pytest.fixture
+def solution():
+    return Solution()
+
+def test_shipWithinDays_example1(solution):
+    weights = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    days = 5
+    assert solution.shipWithinDays(weights, days) == 15
+    assert solution.shipWithinDays_linear(weights, days) == 15
+
+def test_shipWithinDays_example2(solution):
+    weights = [3, 2, 2, 4, 1, 4]
+    days = 3
+    assert solution.shipWithinDays(weights, days) == 6
+    assert solution.shipWithinDays_linear(weights, days) == 6
+
+def test_shipWithinDays_example3(solution):
+    weights = [1, 2, 3, 4, 1, 2]
+    days = 3
+    assert solution.shipWithinDays(weights, days) == 6
+    assert solution.shipWithinDays_linear(weights, days) == 6

@@ -1,31 +1,32 @@
-# LeetCode 210: Course Schedule II
-# Time: O(V + E), Space: O(V + E)
+"""
+Course Schedule II
+LeetCode 210
+
+Approach: Kahn's Algorithm
+Time: O(V + E) — Build graph and BFS.
+Space: O(V + E) — Adjacency list and queue.
+Brute: O(V + E) — DFS post-order traversal then reverse for topological sort.
+"""
+
+from typing import List
+from collections import deque
+
 
 class Solution:
-    def findOrder(self, numCourses: int, prerequisites: list[list[int]]) -> list[int]:
-        graph = [[] for _ in range(numCourses)]
-        for course, pre in prerequisites:
-            graph[course].append(pre)
-        
-        visited = [0] * numCourses
-        result = []
-        
-        def dfs(course):
-            if visited[course] == 1:
-                return False
-            if visited[course] == 2:
-                return True
-            
-            visited[course] = 1
-            for pre in graph[course]:
-                if not dfs(pre):
-                    return False
-            
-            visited[course] = 2
-            result.append(course)
-            return True
-        
-        for i in range(numCourses):
-            if not dfs(i):
-                return []
-        return result
+
+    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+        indegree = [0] * numCourses
+        adj = [[] for _ in range(numCourses)]
+        for dest, src in prerequisites:
+            adj[src].append(dest)
+            indegree[dest] += 1
+        queue = deque([i for i in range(numCourses) if indegree[i] == 0])
+        res = []
+        while queue:
+            node = queue.popleft()
+            res.append(node)
+            for neighbor in adj[node]:
+                indegree[neighbor] -= 1
+                if indegree[neighbor] == 0:
+                    queue.append(neighbor)
+        return res if len(res) == numCourses else []

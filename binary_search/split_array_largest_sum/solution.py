@@ -1,24 +1,41 @@
-# LeetCode 410: Split Array Largest Sum
-# Time: O(n * log(sum)), Space: O(1)
+"""
+Split Array Largest Sum
+LeetCode 410
+
+Approach: Binary Search on Answer
+Time: O(n * log(sum(nums))) — search range from max(nums) to sum(nums)
+Space: O(1) — constant variable space
+Brute: O(k * n^2) — dynamic programming with memoization
+"""
+
+from typing import List
+
 
 class Solution:
-    def splitArray(self, nums: list[int], k: int) -> int:
-        def can_split(max_sum):
+
+    def splitArray(self, nums: List[int], k: int) -> int:
+        def canSplit(max_sum: int) -> bool:
             count = 1
-            curr = 0
-            for n in nums:
-                if curr + n > max_sum:
+            current_sum = 0
+            for num in nums:
+                if current_sum + num > max_sum:
                     count += 1
-                    curr = n
+                    current_sum = num
+                    if count > k:
+                        return False
                 else:
-                    curr += n
-            return count <= k
+                    current_sum += num
+            return True
+            
+        left, right = max(nums), sum(nums)
+        ans = right
         
-        l, r = max(nums), sum(nums)
-        while l < r:
-            mid = (l + r) // 2
-            if can_split(mid):
-                r = mid
+        while left <= right:
+            mid = left + (right - left) // 2
+            if canSplit(mid):
+                ans = mid
+                right = mid - 1
             else:
-                l = mid + 1
-        return l
+                left = mid + 1
+                
+        return ans

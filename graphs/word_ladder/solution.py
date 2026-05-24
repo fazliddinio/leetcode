@@ -1,27 +1,42 @@
-# LeetCode 127: Word Ladder
-# Time: O(m^2 * n), Space: O(m^2 * n)
+"""
+Word Ladder
+LeetCode 127
 
-from collections import deque
+Approach: BFS with Pattern Hashing
+Time: O(M^2 * N) — M is word length, N is number of words. Preprocessing takes M^2*N.
+Space: O(M^2 * N) — Dictionary storing patterns.
+Brute: O(26 * M * N) — BFS trying all 26 letter replacements at each position per word.
+"""
+
+from typing import List
+from collections import defaultdict, deque
+
 
 class Solution:
-    def ladderLength(self, beginWord: str, endWord: str, wordList: list[str]) -> int:
-        word_set = set(wordList)
-        if endWord not in word_set:
+
+    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+        if endWord not in wordList:
             return 0
-        
-        queue = deque([(beginWord, 1)])
-        visited = {beginWord}
-        
+        patterns = defaultdict(list)
+        wordList.append(beginWord)
+        for w in wordList:
+            for i in range(len(w)):
+                pattern = w[:i] + '*' + w[i + 1:]
+                patterns[pattern].append(w)
+        visited = set([beginWord])
+        queue = deque([beginWord])
+        length = 1
         while queue:
-            word, length = queue.popleft()
-            if word == endWord:
-                return length
-            
-            for i in range(len(word)):
-                for c in 'abcdefghijklmnopqrstuvwxyz':
-                    new_word = word[:i] + c + word[i + 1:]
-                    if new_word in word_set and new_word not in visited:
-                        visited.add(new_word)
-                        queue.append((new_word, length + 1))
-        
+            for _ in range(len(queue)):
+                word = queue.popleft()
+                if word == endWord:
+                    return length
+                for i in range(len(word)):
+                    pattern = word[:i] + '*' + word[i + 1:]
+                    for neighbor in patterns[pattern]:
+                        if neighbor not in visited:
+                            visited.add(neighbor)
+                            queue.append(neighbor)
+                    patterns[pattern] = []
+            length += 1
         return 0

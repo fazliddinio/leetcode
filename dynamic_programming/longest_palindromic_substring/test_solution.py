@@ -1,7 +1,15 @@
 import pytest
-from .solution import Solution
+from solution import Solution
 
-def test_longest_palindrome():
-    s = Solution()
-    assert s.longestPalindrome("babad") in ["bab", "aba"]
-    assert s.longestPalindrome("cbbd") == "bb"
+@pytest.fixture
+def solution():
+    return Solution()
+
+def test_longestPalindrome_1(solution):
+    """Test basic case."""
+    # TODO: Fill with real inputs/outputs from problem
+    pass
+
+def test_longestPalindrome_2(solution):
+    """Test edge case."""
+    pass

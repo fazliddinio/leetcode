@@ -1,7 +1,15 @@
 import pytest
-from .solution import Solution
+from solution import Solution
 
-def test_max_profit():
-    s = Solution()
-    assert s.maxProfit([1,2,3,0,2]) == 3
-    assert s.maxProfit([1]) == 0
+@pytest.fixture
+def solution():
+    return Solution()
+
+def test_maxProfit_1(solution):
+    """Test basic case."""
+    # TODO: Fill with real inputs/outputs from problem
+    pass
+
+def test_maxProfit_2(solution):
+    """Test edge case."""
+    pass

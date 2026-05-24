@@ -1,15 +1,24 @@
-# LeetCode 14: Longest Common Prefix
-# Time: O(n * m), Space: O(1)
+"""
+Longest Common Prefix
+LeetCode 14
+
+Approach: Vertical Scanning
+Time: O(S) — where S is sum of all characters.
+Space: O(1) — Constant variable space.
+Brute: O(S log n) — Sort strings and compare only the first and last.
+"""
+
+from typing import List
+
 
 class Solution:
-    def longestCommonPrefix(self, strs: list[str]) -> str:
+
+    def longestCommonPrefix(self, strs: List[str]) -> str:
         if not strs:
             return ""
-        
-        prefix = strs[0]
-        for s in strs[1:]:
-            while not s.startswith(prefix):
-                prefix = prefix[:-1]
-                if not prefix:
-                    return ""
-        return prefix
+        for i in range(len(strs[0])):
+            c = strs[0][i]
+            for j in range(1, len(strs)):
+                if i == len(strs[j]) or strs[j][i] != c:
+                    return strs[0][:i]
+        return strs[0]

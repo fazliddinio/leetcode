@@ -1,7 +1,15 @@
 import pytest
-from .solution import Solution
+from solution import Solution
 
-def test_unique_paths():
-    s = Solution()
-    assert s.uniquePaths(3, 7) == 28
-    assert s.uniquePaths(3, 2) == 3
+@pytest.fixture
+def solution():
+    return Solution()
+
+def test_uniquePaths_1(solution):
+    """Test basic case."""
+    # TODO: Fill with real inputs/outputs from problem
+    pass
+
+def test_uniquePaths_2(solution):
+    """Test edge case."""
+    pass

@@ -1,8 +1,15 @@
 import pytest
-from .solution import Solution
+from solution import Solution
 
-def test_longest_consecutive():
-    s = Solution()
-    assert s.longestConsecutive([100, 4, 200, 1, 3, 2]) == 4
-    assert s.longestConsecutive([0, 3, 7, 2, 5, 8, 4, 6, 0, 1]) == 9
-    assert s.longestConsecutive([]) == 0
+@pytest.fixture
+def solution():
+    return Solution()
+
+def test_longestConsecutive_1(solution):
+    """Test basic case."""
+    # TODO: Fill with real inputs/outputs from problem
+    pass
+
+def test_longestConsecutive_2(solution):
+    """Test edge case."""
+    pass

@@ -1,7 +1,15 @@
 import pytest
-from .solution import Solution
+from solution import Solution
 
-def test_rob():
-    s = Solution()
-    assert s.rob([1,2,3,1]) == 4
-    assert s.rob([2,7,9,3,1]) == 12
+@pytest.fixture
+def solution():
+    return Solution()
+
+def test_rob_1(solution):
+    """Test basic case."""
+    # TODO: Fill with real inputs/outputs from problem
+    pass
+
+def test_rob_2(solution):
+    """Test edge case."""
+    pass

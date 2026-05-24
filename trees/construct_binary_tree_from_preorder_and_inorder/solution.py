@@ -1,21 +1,30 @@
-# LeetCode 105: Construct Binary Tree from Preorder and Inorder Traversal
-# Time: O(n), Space: O(n)
+"""
+Construct Binary Tree from Preorder and Inorder
+LeetCode 105
 
-class TreeNode:
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
+Approach: Hash Map for Inorder Indices
+Time: O(n) — Build map and visit every node.
+Space: O(n) — Hash map and recursion stack.
+Brute: O(n^2) — Recursive with list slicing and index() lookups each time.
+"""
+
+from typing import List, Optional
+
 
 class Solution:
-    def buildTree(self, preorder: list[int], inorder: list[int]) -> TreeNode:
-        if not preorder:
-            return None
-        
-        root = TreeNode(preorder[0])
-        mid = inorder.index(preorder[0])
-        
-        root.left = self.buildTree(preorder[1:mid + 1], inorder[:mid])
-        root.right = self.buildTree(preorder[mid + 1:], inorder[mid + 1:])
-        
-        return root
+
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
+        inorder_map = {val: idx for idx, val in enumerate(inorder)}
+        self.pre_idx = 0
+
+        def build(left, right):
+            if left > right:
+                return None
+            root_val = preorder[self.pre_idx]
+            self.pre_idx += 1
+            root = TreeNode(root_val)
+            mid = inorder_map[root_val]
+            root.left = build(left, mid - 1)
+            root.right = build(mid + 1, right)
+            return root
+        return build(0, len(inorder) - 1)

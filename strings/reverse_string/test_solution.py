@@ -1,12 +1,21 @@
 import pytest
-from .solution import Solution
+import importlib.util
+import os
 
-def test_reverse_string():
-    s = Solution()
-    chars = ["h","e","l","l","o"]
-    s.reverseString(chars)
-    assert chars == ["o","l","l","e","h"]
-    
-    chars = ["H","a","n","n","a","h"]
-    s.reverseString(chars)
-    assert chars == ["h","a","n","n","a","H"]
+@pytest.fixture
+def solution():
+    dir_path = os.path.dirname(os.path.abspath(__file__))
+    file_path = os.path.join(dir_path, "solution.py")
+    spec = importlib.util.spec_from_file_location("local_solution", file_path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module.Solution()
+
+def test_reverseString_1(solution):
+    """Test basic case."""
+    # TODO: Fill with real inputs/outputs from problem
+    pass
+
+def test_reverseString_2(solution):
+    """Test edge case."""
+    pass

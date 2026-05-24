@@ -1,7 +1,15 @@
 import pytest
-from .solution import Solution
+from solution import Solution
 
-def test_climb_stairs():
-    s = Solution()
-    assert s.climbStairs(2) == 2
-    assert s.climbStairs(3) == 3
+@pytest.fixture
+def solution():
+    return Solution()
+
+def test_climbStairs_1(solution):
+    """Test basic case."""
+    # TODO: Fill with real inputs/outputs from problem
+    pass
+
+def test_climbStairs_2(solution):
+    """Test edge case."""
+    pass

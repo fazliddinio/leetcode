@@ -1,17 +1,38 @@
 import pytest
-from .solution import Solution, ListNode
+from solution import Solution, ListNode
 
-def create_linked_list(arr):
-    if not arr:
-        return None
-    head = ListNode(arr[0])
-    curr = head
-    for val in arr[1:]:
+@pytest.fixture
+def solution():
+    return Solution()
+
+def _build_list(values):
+    dummy = ListNode(0)
+    curr = dummy
+    for val in values:
         curr.next = ListNode(val)
         curr = curr.next
-    return head
+    return dummy.next
 
-def test_is_palindrome():
-    s = Solution()
-    assert s.isPalindrome(create_linked_list([1, 2, 2, 1])) == True
-    assert s.isPalindrome(create_linked_list([1, 2])) == False
+def test_isPalindrome_example1(solution):
+    head1 = _build_list([1, 2, 2, 1])
+    head2 = _build_list([1, 2, 2, 1])
+    assert solution.isPalindrome(head1) is True
+    assert solution.isPalindrome_array(head2) is True
+
+def test_isPalindrome_example2(solution):
+    head1 = _build_list([1, 2])
+    head2 = _build_list([1, 2])
+    assert solution.isPalindrome(head1) is False
+    assert solution.isPalindrome_array(head2) is False
+
+def test_isPalindrome_odd(solution):
+    head1 = _build_list([1, 2, 3, 2, 1])
+    head2 = _build_list([1, 2, 3, 2, 1])
+    assert solution.isPalindrome(head1) is True
+    assert solution.isPalindrome_array(head2) is True
+    
+def test_isPalindrome_single(solution):
+    head1 = _build_list([1])
+    head2 = _build_list([1])
+    assert solution.isPalindrome(head1) is True
+    assert solution.isPalindrome_array(head2) is True

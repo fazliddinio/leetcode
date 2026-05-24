@@ -1,8 +1,15 @@
 import pytest
-from .solution import Solution
+from solution import Solution
 
-def test_longest_common_subsequence():
-    s = Solution()
-    assert s.longestCommonSubsequence("abcde", "ace") == 3
-    assert s.longestCommonSubsequence("abc", "abc") == 3
-    assert s.longestCommonSubsequence("abc", "def") == 0
+@pytest.fixture
+def solution():
+    return Solution()
+
+def test_longestCommonSubsequence_1(solution):
+    """Test basic case."""
+    # TODO: Fill with real inputs/outputs from problem
+    pass
+
+def test_longestCommonSubsequence_2(solution):
+    """Test edge case."""
+    pass

@@ -1,28 +1,32 @@
-# LeetCode 207: Course Schedule
-# Time: O(V + E), Space: O(V + E)
+"""
+Course Schedule
+LeetCode 207
+
+Approach: Kahn's Algorithm (BFS)
+Time: O(V + E) — Build graph and BFS.
+Space: O(V + E) — Adjacency list and queue.
+Brute: O(V + E) — DFS cycle detection marking nodes as visiting/visited.
+"""
+
+from typing import List
+from collections import deque
+
 
 class Solution:
-    def canFinish(self, numCourses: int, prerequisites: list[list[int]]) -> bool:
-        graph = [[] for _ in range(numCourses)]
-        for course, pre in prerequisites:
-            graph[course].append(pre)
-        
-        visited = [0] * numCourses  # 0: unvisited, 1: visiting, 2: visited
-        
-        def dfs(course):
-            if visited[course] == 1:
-                return False
-            if visited[course] == 2:
-                return True
-            
-            visited[course] = 1
-            for pre in graph[course]:
-                if not dfs(pre):
-                    return False
-            visited[course] = 2
-            return True
-        
-        for i in range(numCourses):
-            if not dfs(i):
-                return False
-        return True
+
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        indegree = [0] * numCourses
+        adj = [[] for _ in range(numCourses)]
+        for dest, src in prerequisites:
+            adj[src].append(dest)
+            indegree[dest] += 1
+        queue = deque([i for i in range(numCourses) if indegree[i] == 0])
+        processed = 0
+        while queue:
+            node = queue.popleft()
+            processed += 1
+            for neighbor in adj[node]:
+                indegree[neighbor] -= 1
+                if indegree[neighbor] == 0:
+                    queue.append(neighbor)
+        return processed == numCourses

@@ -1,20 +1,20 @@
-# LeetCode 347: Top K Frequent Elements
-# Time: O(n), Space: O(n)
+"""
+Top K Frequent Elements
+LeetCode 347
+
+Approach: Heap
+Time: O(N log K) — Build heap of size K.
+Space: O(N) — Store counts.
+Brute: O(n log n) — Count frequencies then sort all elements.
+"""
+
+from typing import List
+from collections import Counter
+import heapq
+
 
 class Solution:
-    def topKFrequent(self, nums: list[int], k: int) -> list[int]:
-        count = {}
-        for n in nums:
-            count[n] = count.get(n, 0) + 1
-        
-        # bucket sort
-        buckets = [[] for _ in range(len(nums) + 1)]
-        for num, freq in count.items():
-            buckets[freq].append(num)
-        
-        result = []
-        for i in range(len(buckets) - 1, -1, -1):
-            result.extend(buckets[i])
-            if len(result) >= k:
-                return result[:k]
-        return result
+
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        count = Counter(nums)
+        return heapq.nlargest(k, count.keys(), key=count.get)

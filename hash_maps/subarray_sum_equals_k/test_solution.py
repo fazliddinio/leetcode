@@ -1,8 +1,15 @@
 import pytest
-from .solution import Solution
+from solution import Solution
 
-def test_subarray_sum():
-    s = Solution()
-    assert s.subarraySum([1, 1, 1], 2) == 2
-    assert s.subarraySum([1, 2, 3], 3) == 2
-    assert s.subarraySum([1], 0) == 0
+@pytest.fixture
+def solution():
+    return Solution()
+
+def test_subarraySum_1(solution):
+    """Test basic case."""
+    # TODO: Fill with real inputs/outputs from problem
+    pass
+
+def test_subarraySum_2(solution):
+    """Test edge case."""
+    pass

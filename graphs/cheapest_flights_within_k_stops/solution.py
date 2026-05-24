@@ -1,16 +1,27 @@
-# LeetCode 787: Cheapest Flights Within K Stops
-# Time: O(K * E), Space: O(V)
+"""
+Cheapest Flights Within K Stops
+LeetCode 787
+
+Approach: Bellman-Ford Algorithm
+Time: O(K * E) — Run standard relaxation K times.
+Space: O(N) — Store prices array.
+Brute: O(V^K) — DFS/BFS exploring all paths up to K stops, tracking minimum cost.
+"""
+
+from typing import List
+
 
 class Solution:
-    def findCheapestPrice(self, n: int, flights: list[list[int]], src: int, dst: int, k: int) -> int:
+
+    def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
         prices = [float('inf')] * n
         prices[src] = 0
-        
         for _ in range(k + 1):
-            temp = prices.copy()
-            for u, v, w in flights:
-                if prices[u] != float('inf'):
-                    temp[v] = min(temp[v], prices[u] + w)
-            prices = temp
-        
+            temp_prices = prices[:]
+            for s, d, p in flights:
+                if prices[s] == float('inf'):
+                    continue
+                if prices[s] + p < temp_prices[d]:
+                    temp_prices[d] = prices[s] + p
+            prices = temp_prices
         return prices[dst] if prices[dst] != float('inf') else -1

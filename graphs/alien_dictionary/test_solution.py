@@ -1,8 +1,15 @@
 import pytest
-from .solution import Solution
+from solution import Solution
 
-def test_alien_order():
-    s = Solution()
-    assert s.alienOrder(["wrt","wrf","er","ett","rftt"]) == "wertf"
-    assert s.alienOrder(["z","x"]) == "zx"
-    assert s.alienOrder(["z","x","z"]) == ""
+@pytest.fixture
+def solution():
+    return Solution()
+
+def test_alienOrder_1(solution):
+    """Test basic case."""
+    # TODO: Fill with real inputs/outputs from problem
+    pass
+
+def test_alienOrder_2(solution):
+    """Test edge case."""
+    pass

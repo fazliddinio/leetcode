@@ -1,7 +1,30 @@
 import pytest
-from .solution import Solution
+from solution import Solution
 
-def test_character_replacement():
-    s = Solution()
-    assert s.characterReplacement("ABAB", 2) == 4
-    assert s.characterReplacement("AABABBA", 1) == 4
+@pytest.fixture
+def solution():
+    return Solution()
+
+def test_characterReplacement_example1(solution):
+    s = "ABAB"
+    k = 2
+    assert solution.characterReplacement(s, k) == 4
+    assert solution.characterReplacement_strict(s, k) == 4
+
+def test_characterReplacement_example2(solution):
+    s = "AABABBA"
+    k = 1
+    assert solution.characterReplacement(s, k) == 4
+    assert solution.characterReplacement_strict(s, k) == 4
+
+def test_characterReplacement_k_zero(solution):
+    s = "AABBAABAB"
+    k = 0
+    assert solution.characterReplacement(s, k) == 2
+    assert solution.characterReplacement_strict(s, k) == 2
+
+def test_characterReplacement_all_same(solution):
+    s = "AAAA"
+    k = 2
+    assert solution.characterReplacement(s, k) == 4
+    assert solution.characterReplacement_strict(s, k) == 4

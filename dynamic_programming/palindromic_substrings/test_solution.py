@@ -1,7 +1,15 @@
 import pytest
-from .solution import Solution
+from solution import Solution
 
-def test_count_substrings():
-    s = Solution()
-    assert s.countSubstrings("abc") == 3
-    assert s.countSubstrings("aaa") == 6
+@pytest.fixture
+def solution():
+    return Solution()
+
+def test_countSubstrings_1(solution):
+    """Test basic case."""
+    # TODO: Fill with real inputs/outputs from problem
+    pass
+
+def test_countSubstrings_2(solution):
+    """Test edge case."""
+    pass

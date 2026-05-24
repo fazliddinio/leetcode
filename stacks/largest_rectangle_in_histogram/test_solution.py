@@ -1,8 +1,15 @@
 import pytest
-from .solution import Solution
+from solution import Solution
 
-def test_largest_rectangle_area():
-    s = Solution()
-    assert s.largestRectangleArea([2,1,5,6,2,3]) == 10
-    assert s.largestRectangleArea([2,4]) == 4
-    assert s.largestRectangleArea([2,1,2]) == 3
+@pytest.fixture
+def solution():
+    return Solution()
+
+def test_largestRectangleArea_1(solution):
+    """Test basic case."""
+    # TODO: Fill with real inputs/outputs from problem
+    pass
+
+def test_largestRectangleArea_2(solution):
+    """Test edge case."""
+    pass

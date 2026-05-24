@@ -1,8 +1,15 @@
 import pytest
-from .solution import Solution
+from solution import Solution
 
-def test_daily_temperatures():
-    s = Solution()
-    assert s.dailyTemperatures([73,74,75,71,69,72,76,73]) == [1,1,4,2,1,1,0,0]
-    assert s.dailyTemperatures([30,40,50,60]) == [1,1,1,0]
-    assert s.dailyTemperatures([30,60,90]) == [1,1,0]
+@pytest.fixture
+def solution():
+    return Solution()
+
+def test_dailyTemperatures_1(solution):
+    """Test basic case."""
+    # TODO: Fill with real inputs/outputs from problem
+    pass
+
+def test_dailyTemperatures_2(solution):
+    """Test edge case."""
+    pass

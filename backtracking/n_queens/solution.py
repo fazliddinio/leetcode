@@ -1,0 +1,40 @@
+"""
+N-Queens
+LeetCode 51
+
+Approach: Backtracking
+Time: O(N!) — N factorial possibilities to place queens.
+Space: O(N) — Sets and recursion stack.
+Brute: O(N! * N^2) — Try all column permutations, validate diagonals for each.
+"""
+
+from typing import List
+
+
+class Solution:
+
+    def solveNQueens(self, n: int) -> List[List[str]]:
+        cols = set()
+        pos_diag = set()
+        neg_diag = set()
+        res = []
+        board = [['.'] * n for _ in range(n)]
+
+        def backtrack(r):
+            if r == n:
+                res.append([''.join(row) for row in board])
+                return
+            for c in range(n):
+                if c in cols or r + c in pos_diag or r - c in neg_diag:
+                    continue
+                cols.add(c)
+                pos_diag.add(r + c)
+                neg_diag.add(r - c)
+                board[r][c] = 'Q'
+                backtrack(r + 1)
+                cols.remove(c)
+                pos_diag.remove(r + c)
+                neg_diag.remove(r - c)
+                board[r][c] = '.'
+        backtrack(0)
+        return res

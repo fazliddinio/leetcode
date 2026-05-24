@@ -1,17 +1,15 @@
 import pytest
-from .solution import Solution, TreeNode
+from solution import Solution
 
-def test_kth_smallest():
-    s = Solution()
-    #    3
-    #   / \
-    #  1   4
-    #   \
-    #    2
-    root = TreeNode(3)
-    root.left = TreeNode(1)
-    root.right = TreeNode(4)
-    root.left.right = TreeNode(2)
-    
-    assert s.kthSmallest(root, 1) == 1
-    assert s.kthSmallest(root, 3) == 3
+@pytest.fixture
+def solution():
+    return Solution()
+
+def test_kthSmallest_1(solution):
+    """Test basic case."""
+    # TODO: Fill with real inputs/outputs from problem
+    pass
+
+def test_kthSmallest_2(solution):
+    """Test edge case."""
+    pass

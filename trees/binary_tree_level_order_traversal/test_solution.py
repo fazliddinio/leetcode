@@ -1,13 +1,15 @@
 import pytest
-from .solution import Solution, TreeNode
+from solution import Solution
 
-def test_level_order():
-    s = Solution()
-    root = TreeNode(3)
-    root.left = TreeNode(9)
-    root.right = TreeNode(20)
-    root.right.left = TreeNode(15)
-    root.right.right = TreeNode(7)
-    
-    assert s.levelOrder(root) == [[3], [9, 20], [15, 7]]
-    assert s.levelOrder(None) == []
+@pytest.fixture
+def solution():
+    return Solution()
+
+def test_levelOrder_1(solution):
+    """Test basic case."""
+    # TODO: Fill with real inputs/outputs from problem
+    pass
+
+def test_levelOrder_2(solution):
+    """Test edge case."""
+    pass

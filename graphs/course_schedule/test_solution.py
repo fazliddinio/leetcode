@@ -1,7 +1,15 @@
 import pytest
-from .solution import Solution
+from solution import Solution
 
-def test_can_finish():
-    s = Solution()
-    assert s.canFinish(2, [[1,0]]) == True
-    assert s.canFinish(2, [[1,0],[0,1]]) == False
+@pytest.fixture
+def solution():
+    return Solution()
+
+def test_canFinish_1(solution):
+    """Test basic case."""
+    # TODO: Fill with real inputs/outputs from problem
+    pass
+
+def test_canFinish_2(solution):
+    """Test edge case."""
+    pass

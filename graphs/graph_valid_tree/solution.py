@@ -1,26 +1,38 @@
-# LeetCode 261: Graph Valid Tree
-# Time: O(n), Space: O(n)
+"""
+Graph Valid Tree
+LeetCode 261
+
+Approach: Union-Find
+Time: O(N * alpha(N)) — Proportional to N edges.
+Space: O(N) — Parent array.
+Brute: O(V + E) — DFS checking n-1 edges and full reachability from node 0.
+"""
+
+from typing import List
+
 
 class Solution:
-    def validTree(self, n: int, edges: list[list[int]]) -> bool:
+
+    def validTree(self, n: int, edges: List[List[int]]) -> bool:
         if len(edges) != n - 1:
             return False
-        
         parent = list(range(n))
-        
+        count = n
+
         def find(x):
             if parent[x] != x:
                 parent[x] = find(parent[x])
             return parent[x]
-        
+
         def union(x, y):
-            px, py = find(x), find(y)
-            if px == py:
+            nonlocal count
+            rootX, rootY = (find(x), find(y))
+            if rootX != rootY:
+                parent[rootX] = rootY
+                count -= 1
+                return True
+            return False
+        for u, v in edges:
+            if not union(u, v):
                 return False
-            parent[px] = py
-            return True
-        
-        for x, y in edges:
-            if not union(x, y):
-                return False
-        return True
+        return count == 1

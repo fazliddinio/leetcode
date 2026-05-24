@@ -1,12 +1,24 @@
-# LeetCode 1: Two Sum
-# Time: O(n), Space: O(n)
+"""
+Two Sum
+LeetCode 1
+
+Approach: Hash Map
+Time: O(n) — single pass with O(1) average lookup
+Space: O(n) — hash map stores up to n-1 elements
+Brute: O(n²) — check all pairs with nested loops
+"""
+
+from typing import List
+
 
 class Solution:
-    def twoSum(self, nums: list[int], target: int) -> list[int]:
+
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        """Hash Map Approach"""
         seen = {}
-        for i, n in enumerate(nums):
-            diff = target - n
-            if diff in seen:
-                return [seen[diff], i]
-            seen[n] = i
+        for i, num in enumerate(nums):
+            complement = target - num
+            if complement in seen:
+                return [seen[complement], i]
+            seen[num] = i
         return []

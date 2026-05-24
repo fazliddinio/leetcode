@@ -1,14 +1,23 @@
-# LeetCode 496: Next Greater Element I
-# Time: O(n + m), Space: O(n)
+"""
+Next Greater Element
+LeetCode 496
+
+Approach: Monotonic Stack + Hash Map
+Time: O(n + m) — Process nums2 then nums1.
+Space: O(m) — Map and stack.
+Brute: O(n*m) — For each num in nums1, find it in nums2 and scan right for greater.
+"""
+
+from typing import List
+
 
 class Solution:
-    def nextGreaterElement(self, nums1: list[int], nums2: list[int]) -> list[int]:
+
+    def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
         next_greater = {}
         stack = []
-        
-        for n in nums2:
-            while stack and stack[-1] < n:
-                next_greater[stack.pop()] = n
-            stack.append(n)
-        
-        return [next_greater.get(n, -1) for n in nums1]
+        for num in nums2:
+            while stack and num > stack[-1]:
+                next_greater[stack.pop()] = num
+            stack.append(num)
+        return [next_greater.get(num, -1) for num in nums1]

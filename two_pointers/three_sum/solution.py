@@ -1,29 +1,41 @@
-# LeetCode 15: 3Sum
-# Time: O(n^2), Space: O(1)
+"""
+3Sum
+LeetCode 15
+
+Approach: Sort + Two Pointers
+Time: O(n²) — sorting O(n log n) + nested loop O(n²)
+Space: O(1) — excluding output
+Brute: O(n²) — for each element, use hash set to find two-sum complement
+"""
+
+from typing import List
+
 
 class Solution:
-    def threeSum(self, nums: list[int]) -> list[list[int]]:
+
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
         nums.sort()
         result = []
-        
-        for i in range(len(nums) - 2):
+        n = len(nums)
+        for i in range(n - 2):
+            if nums[i] > 0:
+                break
             if i > 0 and nums[i] == nums[i - 1]:
                 continue
-            
-            l, r = i + 1, len(nums) - 1
-            while l < r:
-                total = nums[i] + nums[l] + nums[r]
-                if total < 0:
-                    l += 1
-                elif total > 0:
-                    r -= 1
+            left, right = i + 1, n - 1
+            target = -nums[i]
+            while left < right:
+                current_sum = nums[left] + nums[right]
+                if current_sum < target:
+                    left += 1
+                elif current_sum > target:
+                    right -= 1
                 else:
-                    result.append([nums[i], nums[l], nums[r]])
-                    while l < r and nums[l] == nums[l + 1]:
-                        l += 1
-                    while l < r and nums[r] == nums[r - 1]:
-                        r -= 1
-                    l += 1
-                    r -= 1
-        
+                    result.append([nums[i], nums[left], nums[right]])
+                    while left < right and nums[left] == nums[left + 1]:
+                        left += 1
+                    while left < right and nums[right] == nums[right - 1]:
+                        right -= 1
+                    left += 1
+                    right -= 1
         return result

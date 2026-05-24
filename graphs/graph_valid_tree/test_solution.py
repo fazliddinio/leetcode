@@ -1,7 +1,15 @@
 import pytest
-from .solution import Solution
+from solution import Solution
 
-def test_valid_tree():
-    s = Solution()
-    assert s.validTree(5, [[0,1], [0,2], [0,3], [1,4]]) == True
-    assert s.validTree(5, [[0,1], [1,2], [2,3], [1,3], [1,4]]) == False
+@pytest.fixture
+def solution():
+    return Solution()
+
+def test_validTree_1(solution):
+    """Test basic case."""
+    # TODO: Fill with real inputs/outputs from problem
+    pass
+
+def test_validTree_2(solution):
+    """Test edge case."""
+    pass

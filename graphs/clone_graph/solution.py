@@ -1,28 +1,29 @@
-# LeetCode 133: Clone Graph
-# Time: O(n), Space: O(n)
+"""
+Clone Graph
+LeetCode 133
 
-class Node:
-    def __init__(self, val=0, neighbors=None):
-        self.val = val
-        self.neighbors = neighbors if neighbors else []
+Approach: DFS with HashMap
+Time: O(N + E) — Visit each node and edge once.
+Space: O(N) — HashMap to store visited nodes.
+Brute: O(N + E) — BFS with HashMap for iterative cloning.
+"""
+
+from typing import Optional
+
 
 class Solution:
-    def cloneGraph(self, node: Node) -> Node:
+
+    def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
         if not node:
             return None
-        
         clones = {}
-        
-        def dfs(n):
-            if n in clones:
-                return clones[n]
-            
-            clone = Node(n.val)
-            clones[n] = clone
-            
-            for neighbor in n.neighbors:
-                clone.neighbors.append(dfs(neighbor))
-            
-            return clone
-        
+
+        def dfs(curr):
+            if curr in clones:
+                return clones[curr]
+            copy = Node(curr.val)
+            clones[curr] = copy
+            for neighbor in curr.neighbors:
+                copy.neighbors.append(dfs(neighbor))
+            return copy
         return dfs(node)

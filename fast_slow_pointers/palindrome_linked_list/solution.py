@@ -1,28 +1,37 @@
-# LeetCode 234: Palindrome Linked List
-# Time: O(n), Space: O(1)
+"""
+Palindrome Linked List
+LeetCode 234
+
+Approach: Reverse Second Half
+Time: O(n) — find middle + reverse + compare
+Space: O(1) — in-place reverse
+Brute: O(n) — copy values to array and check with two pointers using O(n) space
+"""
+
+from typing import Optional
+
 
 class ListNode:
     def __init__(self, val=0, next=None):
         self.val = val
         self.next = next
 
+
 class Solution:
-    def isPalindrome(self, head: ListNode) -> bool:
-        # find middle
+
+    def isPalindrome(self, head: Optional[ListNode]) -> bool:
         slow = fast = head
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
-        
-        # reverse second half
+
         prev = None
         while slow:
-            nxt = slow.next
+            next_node = slow.next
             slow.next = prev
             prev = slow
-            slow = nxt
-        
-        # compare
+            slow = next_node
+
         left, right = head, prev
         while right:
             if left.val != right.val:

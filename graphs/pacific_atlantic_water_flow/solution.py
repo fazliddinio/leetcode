@@ -1,32 +1,36 @@
-# LeetCode 417: Pacific Atlantic Water Flow
-# Time: O(m * n), Space: O(m * n)
+"""
+Pacific Atlantic Water Flow
+LeetCode 417
+
+Approach: DFS from Ocean Borders
+Time: O(M * N) — Visit every cell at most twice.
+Space: O(M * N) — Recursion stack and visited sets.
+Brute: O(M * N) — BFS from ocean borders instead of recursive DFS.
+"""
+
+from typing import List
+
 
 class Solution:
-    def pacificAtlantic(self, heights: list[list[int]]) -> list[list[int]]:
+
+    def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
         if not heights:
             return []
-        
-        rows, cols = len(heights), len(heights[0])
-        pacific = set()
-        atlantic = set()
-        
+        rows, cols = (len(heights), len(heights[0]))
+        pac, atl = (set(), set())
+
         def dfs(r, c, visited, prev_height):
-            if (r, c) in visited or r < 0 or r >= rows or c < 0 or c >= cols:
-                return
-            if heights[r][c] < prev_height:
+            if (r, c) in visited or r < 0 or r >= rows or (c < 0) or (c >= cols) or (heights[r][c] < prev_height):
                 return
             visited.add((r, c))
             dfs(r + 1, c, visited, heights[r][c])
             dfs(r - 1, c, visited, heights[r][c])
             dfs(r, c + 1, visited, heights[r][c])
             dfs(r, c - 1, visited, heights[r][c])
-        
         for c in range(cols):
-            dfs(0, c, pacific, heights[0][c])
-            dfs(rows - 1, c, atlantic, heights[rows - 1][c])
-        
+            dfs(0, c, pac, heights[0][c])
+            dfs(rows - 1, c, atl, heights[rows - 1][c])
         for r in range(rows):
-            dfs(r, 0, pacific, heights[r][0])
-            dfs(r, cols - 1, atlantic, heights[r][cols - 1])
-        
-        return list(pacific & atlantic)
+            dfs(r, 0, pac, heights[r][0])
+            dfs(r, cols - 1, atl, heights[r][cols - 1])
+        return [list(x) for x in list(pac.intersection(atl))]

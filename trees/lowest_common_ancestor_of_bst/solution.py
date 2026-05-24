@@ -1,13 +1,18 @@
-# LeetCode 235: Lowest Common Ancestor of a Binary Search Tree
-# Time: O(h), Space: O(1)
+"""
+Lowest Common Ancestor of a BST
+LeetCode 235
 
-class TreeNode:
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
+Approach: Iterative BST Search
+Time: O(h) — Path from root to LCA.
+Space: O(1) — Constant variable space.
+Brute: O(h) — Recursive BST traversal letting the call stack guide to the split point.
+"""
+
+from typing import Optional
+
 
 class Solution:
+
     def lowestCommonAncestor(self, root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:
         while root:
             if p.val < root.val and q.val < root.val:

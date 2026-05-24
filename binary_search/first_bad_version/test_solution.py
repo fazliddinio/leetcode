@@ -1,16 +1,28 @@
 import pytest
-from unittest.mock import patch
-from .solution import Solution
+import solution
+from solution import Solution
 
-def test_first_bad_version():
-    # Patch the isBadVersion in the solution module
-    with patch('leetcode.binary_search.first_bad_version.solution.isBadVersion') as mock_is_bad:
-        s = Solution()
-        
-        # Case 1: n=5, bad=4
-        mock_is_bad.side_effect = lambda v: v >= 4
-        assert s.firstBadVersion(5) == 4
-        
-        # Case 2: n=1, bad=1
-        mock_is_bad.side_effect = lambda v: v >= 1
-        assert s.firstBadVersion(1) == 1
+@pytest.fixture
+def test_solution():
+    return Solution()
+
+def set_bad_version(bad):
+    solution._BAD_VERSION = bad
+
+def test_firstBadVersion_example1(test_solution):
+    set_bad_version(4)
+    n = 5
+    assert test_solution.firstBadVersion(n) == 4
+    assert test_solution.firstBadVersion_linear(n) == 4
+
+def test_firstBadVersion_example2(test_solution):
+    set_bad_version(1)
+    n = 1
+    assert test_solution.firstBadVersion(n) == 1
+    assert test_solution.firstBadVersion_linear(n) == 1
+
+def test_firstBadVersion_last(test_solution):
+    set_bad_version(10)
+    n = 10
+    assert test_solution.firstBadVersion(n) == 10
+    assert test_solution.firstBadVersion_linear(n) == 10

@@ -1,8 +1,26 @@
 import pytest
-from .solution import Solution
+from solution import Solution
 
-def test_is_palindrome():
-    s = Solution()
-    assert s.isPalindrome("A man, a plan, a canal: Panama") == True
-    assert s.isPalindrome("race a car") == False
-    assert s.isPalindrome(" ") == True
+@pytest.fixture
+def solution():
+    return Solution()
+
+def test_isPalindrome_example1(solution):
+    s = "A man, a plan, a canal: Panama"
+    assert solution.isPalindrome(s) is True
+    assert solution.isPalindrome_reverse(s) is True
+
+def test_isPalindrome_example2(solution):
+    s = "race a car"
+    assert solution.isPalindrome(s) is False
+    assert solution.isPalindrome_reverse(s) is False
+
+def test_isPalindrome_empty(solution):
+    s = " "
+    assert solution.isPalindrome(s) is True
+    assert solution.isPalindrome_reverse(s) is True
+
+def test_isPalindrome_numbers(solution):
+    s = "0P"
+    assert solution.isPalindrome(s) is False
+    assert solution.isPalindrome_reverse(s) is False

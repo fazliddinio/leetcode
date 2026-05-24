@@ -1,13 +1,25 @@
-# LeetCode 876: Middle of the Linked List
-# Time: O(n), Space: O(1)
+"""
+Middle of the Linked List
+LeetCode 876
+
+Approach: Fast and Slow Pointers
+Time: O(n) — single pass
+Space: O(1) — constant variable space
+Brute: O(n) — two passes: count nodes first, then traverse to middle
+"""
+
+from typing import Optional
+
 
 class ListNode:
     def __init__(self, val=0, next=None):
         self.val = val
         self.next = next
 
+
 class Solution:
-    def middleNode(self, head: ListNode) -> ListNode:
+
+    def middleNode(self, head: Optional[ListNode]) -> Optional[ListNode]:
         slow = fast = head
         while fast and fast.next:
             slow = slow.next

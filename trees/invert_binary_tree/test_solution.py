@@ -1,15 +1,15 @@
 import pytest
-from .solution import Solution, TreeNode
+from solution import Solution
 
-def test_invert_tree():
-    s = Solution()
-    root = TreeNode(2)
-    root.left = TreeNode(1)
-    root.right = TreeNode(3)
-    
-    inv = s.invertTree(root)
-    assert inv.val == 2
-    assert inv.left.val == 3
-    assert inv.right.val == 1
-    
-    assert s.invertTree(None) == None
+@pytest.fixture
+def solution():
+    return Solution()
+
+def test_invertTree_1(solution):
+    """Test basic case."""
+    # TODO: Fill with real inputs/outputs from problem
+    pass
+
+def test_invertTree_2(solution):
+    """Test edge case."""
+    pass

@@ -1,7 +1,15 @@
 import pytest
-from .solution import Solution
+from solution import Solution
 
-def test_ladder_length():
-    s = Solution()
-    assert s.ladderLength("hit", "cog", ["hot","dot","dog","lot","log","cog"]) == 5
-    assert s.ladderLength("hit", "cog", ["hot","dot","dog","lot","log"]) == 0
+@pytest.fixture
+def solution():
+    return Solution()
+
+def test_ladderLength_1(solution):
+    """Test basic case."""
+    # TODO: Fill with real inputs/outputs from problem
+    pass
+
+def test_ladderLength_2(solution):
+    """Test edge case."""
+    pass

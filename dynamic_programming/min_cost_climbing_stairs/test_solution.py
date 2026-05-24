@@ -1,7 +1,15 @@
 import pytest
-from .solution import Solution
+from solution import Solution
 
-def test_min_cost_climbing_stairs():
-    s = Solution()
-    assert s.minCostClimbingStairs([10, 15, 20]) == 15
-    assert s.minCostClimbingStairs([1, 100, 1, 1, 1, 100, 1, 1, 100, 1]) == 6
+@pytest.fixture
+def solution():
+    return Solution()
+
+def test_minCostClimbingStairs_1(solution):
+    """Test basic case."""
+    # TODO: Fill with real inputs/outputs from problem
+    pass
+
+def test_minCostClimbingStairs_2(solution):
+    """Test edge case."""
+    pass

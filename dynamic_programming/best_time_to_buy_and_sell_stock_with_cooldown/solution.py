@@ -1,16 +1,25 @@
-# LeetCode 309: Best Time to Buy and Sell Stock with Cooldown
-# Time: O(n), Space: O(1)
+"""
+Best Time to Buy and Sell Stock with Cooldown
+LeetCode 309
+
+Approach: State Machine DP
+Time: O(n) — Single pass.
+Space: O(1) — Constant variable space.
+Brute: O(2^n) — Recursive DFS over (index, holding) states.
+"""
+
+from typing import List
+
 
 class Solution:
-    def maxProfit(self, prices: list[int]) -> int:
-        sold = 0
+
+    def maxProfit(self, prices: List[int]) -> int:
         held = float('-inf')
+        sold = 0
         rest = 0
-        
         for price in prices:
             prev_sold = sold
             sold = held + price
             held = max(held, rest - price)
             rest = max(rest, prev_sold)
-        
         return max(sold, rest)

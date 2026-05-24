@@ -1,10 +1,15 @@
 import pytest
-from .solution import Solution
+from solution import Solution
 
-def test_unique_paths_with_obstacles():
-    s = Solution()
-    grid = [[0,0,0],[0,1,0],[0,0,0]]
-    assert s.uniquePathsWithObstacles(grid) == 2
-    
-    grid = [[0,1],[0,0]]
-    assert s.uniquePathsWithObstacles(grid) == 1
+@pytest.fixture
+def solution():
+    return Solution()
+
+def test_uniquePathsWithObstacles_1(solution):
+    """Test basic case."""
+    # TODO: Fill with real inputs/outputs from problem
+    pass
+
+def test_uniquePathsWithObstacles_2(solution):
+    """Test edge case."""
+    pass

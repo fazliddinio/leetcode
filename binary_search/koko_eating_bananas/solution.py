@@ -1,17 +1,33 @@
-# LeetCode 875: Koko Eating Bananas
-# Time: O(n * log(max)), Space: O(1)
+"""
+Koko Eating Bananas
+LeetCode 875
+
+Approach: Binary Search on Answer
+Time: O(n log m) — n=piles, m=max(piles)
+Space: O(1) — constant variable space
+Brute: O(n * m) — try every speed from 1 to max(piles) linearly
+"""
+
+from typing import List
+import math
+
 
 class Solution:
-    def minEatingSpeed(self, piles: list[int], h: int) -> int:
-        l, r = 1, max(piles)
+
+    def minEatingSpeed(self, piles: List[int], h: int) -> int:
+        left, right = 1, max(piles)
+        ans = right
         
-        while l < r:
-            mid = (l + r) // 2
-            hours = sum((p + mid - 1) // mid for p in piles)
-            
-            if hours <= h:
-                r = mid
+        while left <= right:
+            mid = left + (right - left) // 2
+            hours_needed = 0
+            for pile in piles:
+                hours_needed += math.ceil(pile / mid)
+                
+            if hours_needed <= h:
+                ans = mid
+                right = mid - 1
             else:
-                l = mid + 1
-        
-        return l
+                left = mid + 1
+                
+        return ans

@@ -1,39 +1,56 @@
-# LeetCode 297: Serialize and Deserialize Binary Tree
-# Time: O(n), Space: O(n)
+"""
+Serialize and Deserialize Binary Tree
+LeetCode 297
+
+Approach: BFS (Level Order Serialization)
+Time: O(n) — Visit every node once.
+Space: O(n) — Queue and output string/list.
+Brute: O(n) — Recursive DFS preorder serialization with null markers.
+"""
+
+from typing import Optional
+from collections import deque
+
 
 class TreeNode:
+
     def __init__(self, val=0, left=None, right=None):
         self.val = val
         self.left = left
         self.right = right
 
 class Codec:
-    def serialize(self, root: TreeNode) -> str:
+
+    def serialize(self, root: Optional[TreeNode]) -> str:
+        if not root:
+            return ''
         result = []
-        
-        def dfs(node):
-            if not node:
-                result.append('N')
-                return
-            result.append(str(node.val))
-            dfs(node.left)
-            dfs(node.right)
-        
-        dfs(root)
+        queue = deque([root])
+        while queue:
+            node = queue.popleft()
+            if node:
+                result.append(str(node.val))
+                queue.append(node.left)
+                queue.append(node.right)
+            else:
+                result.append('null')
         return ','.join(result)
-    
-    def deserialize(self, data: str) -> TreeNode:
-        vals = data.split(',')
-        self.i = 0
-        
-        def dfs():
-            if vals[self.i] == 'N':
-                self.i += 1
-                return None
-            node = TreeNode(int(vals[self.i]))
-            self.i += 1
-            node.left = dfs()
-            node.right = dfs()
-            return node
-        
-        return dfs()
+
+    def deserialize(self, data: str) -> Optional[TreeNode]:
+        if not data:
+            return None
+        values = data.split(',')
+        root = TreeNode(int(values[0]))
+        queue = deque([root])
+        i = 1
+        while queue and i < len(values):
+            node = queue.popleft()
+            if values[i] != 'null':
+                node.left = TreeNode(int(values[i]))
+                queue.append(node.left)
+            i += 1
+            if i < len(values) and values[i] != 'null':
+                node.right = TreeNode(int(values[i]))
+                queue.append(node.right)
+            i += 1
+        return root

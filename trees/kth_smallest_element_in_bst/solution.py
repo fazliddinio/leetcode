@@ -1,25 +1,26 @@
-# LeetCode 230: Kth Smallest Element in a BST
-# Time: O(h + k), Space: O(h)
+"""
+Kth Smallest Element in a BST
+LeetCode 230
 
-class TreeNode:
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
+Approach: Iterative Inorder Traversal
+Time: O(H + k) — Reach leftmost then process k nodes.
+Space: O(H) — Stack height.
+Brute: O(n) — Recursive inorder collecting all values into sorted list, return k-th.
+"""
+
+from typing import Optional
+
 
 class Solution:
-    def kthSmallest(self, root: TreeNode, k: int) -> int:
+
+    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
         stack = []
-        curr = root
-        
-        while stack or curr:
-            while curr:
-                stack.append(curr)
-                curr = curr.left
-            curr = stack.pop()
+        while True:
+            while root:
+                stack.append(root)
+                root = root.left
+            root = stack.pop()
             k -= 1
             if k == 0:
-                return curr.val
-            curr = curr.right
-        
-        return -1
+                return root.val
+            root = root.right

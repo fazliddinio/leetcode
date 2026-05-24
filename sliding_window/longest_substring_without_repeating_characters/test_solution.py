@@ -1,9 +1,26 @@
 import pytest
-from .solution import Solution
+from solution import Solution
 
-def test_length_of_longest_substring():
-    s = Solution()
-    assert s.lengthOfLongestSubstring("abcabcbb") == 3
-    assert s.lengthOfLongestSubstring("bbbbb") == 1
-    assert s.lengthOfLongestSubstring("pwwkew") == 3
-    assert s.lengthOfLongestSubstring("") == 0
+@pytest.fixture
+def solution():
+    return Solution()
+
+def test_lengthOfLongestSubstring_example1(solution):
+    s = "abcabcbb"
+    assert solution.lengthOfLongestSubstring(s) == 3
+    assert solution.lengthOfLongestSubstring_set(s) == 3
+
+def test_lengthOfLongestSubstring_example2(solution):
+    s = "bbbbb"
+    assert solution.lengthOfLongestSubstring(s) == 1
+    assert solution.lengthOfLongestSubstring_set(s) == 1
+
+def test_lengthOfLongestSubstring_example3(solution):
+    s = "pwwkew"
+    assert solution.lengthOfLongestSubstring(s) == 3
+    assert solution.lengthOfLongestSubstring_set(s) == 3
+
+def test_lengthOfLongestSubstring_empty(solution):
+    s = ""
+    assert solution.lengthOfLongestSubstring(s) == 0
+    assert solution.lengthOfLongestSubstring_set(s) == 0

@@ -1,12 +1,15 @@
-# LeetCode 28: Find the Index of the First Occurrence in a String
-# Time: O(n * m), Space: O(1)
+"""
+Find the Index of the First Occurrence in a String (Implement strStr)
+LeetCode 28
+
+Approach: Built-in / Sliding Window
+Time: O(n*m) — Worst-case substring matching.
+Space: O(1) — Constant variable space.
+Brute: O(n*m) — Manually slide a window and compare substrings character by character.
+"""
+
 
 class Solution:
+
     def strStr(self, haystack: str, needle: str) -> int:
-        if not needle:
-            return 0
-        
-        for i in range(len(haystack) - len(needle) + 1):
-            if haystack[i:i + len(needle)] == needle:
-                return i
-        return -1
+        return haystack.find(needle)

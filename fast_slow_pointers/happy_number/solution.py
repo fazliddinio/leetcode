@@ -1,19 +1,28 @@
-# LeetCode 202: Happy Number  
-# Time: O(log n), Space: O(1)
+"""
+Happy Number
+LeetCode 202
+
+Approach: Floyd's Cycle Detection
+Time: O(log n) — sum of squares decreases rapidly
+Space: O(1) — constant extra space
+Brute: O(log n) — use hash set to detect cycles using O(log n) space
+"""
+
 
 class Solution:
+
+    def get_next(self, num: int) -> int:
+        total = 0
+        while num > 0:
+            digit = num % 10
+            total += digit * digit
+            num //= 10
+        return total
+
     def isHappy(self, n: int) -> bool:
-        def get_next(num):
-            total = 0
-            while num > 0:
-                digit = num % 10
-                total += digit * digit
-                num //= 10
-            return total
-        
         slow = n
-        fast = get_next(n)
+        fast = self.get_next(n)
         while fast != 1 and slow != fast:
-            slow = get_next(slow)
-            fast = get_next(get_next(fast))
+            slow = self.get_next(slow)
+            fast = self.get_next(self.get_next(fast))
         return fast == 1

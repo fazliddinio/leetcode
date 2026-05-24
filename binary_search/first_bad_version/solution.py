@@ -1,19 +1,26 @@
-# LeetCode 278: First Bad Version
-# Time: O(log n), Space: O(1)
+"""
+First Bad Version
+LeetCode 278
 
-# The isBadVersion API is already defined for you.
-# def isBadVersion(version: int) -> bool:
+Approach: Binary Search
+Time: O(log n) — logarithmic number of API calls
+Space: O(1) — constant variable space
+Brute: O(n) — linear scan checking each version from 1 to n
+"""
 
-def isBadVersion(version):
-    return False # Placeholder for local testing
+_BAD_VERSION = 1
+def isBadVersion(version: int) -> bool:
+    global _BAD_VERSION
+    return version >= _BAD_VERSION
 
 class Solution:
+
     def firstBadVersion(self, n: int) -> int:
-        l, r = 1, n
-        while l < r:
-            mid = (l + r) // 2
+        left, right = 1, n
+        while left < right:
+            mid = left + (right - left) // 2
             if isBadVersion(mid):
-                r = mid
+                right = mid
             else:
-                l = mid + 1
-        return l
+                left = mid + 1
+        return left

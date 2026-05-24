@@ -1,22 +1,24 @@
-# LeetCode 199: Binary Tree Right Side View
-# Time: O(n), Space: O(n)
+"""
+Binary Tree Right Side View
+LeetCode 199
 
+Approach: BFS (Level Order)
+Time: O(n) — Visit every node once.
+Space: O(n) — Queue width (or O(h) with DFS).
+Brute: O(n) — Recursive DFS visiting right subtree first, recording first node at each depth.
+"""
+
+from typing import Optional, List
 from collections import deque
 
-class TreeNode:
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
 
 class Solution:
-    def rightSideView(self, root: TreeNode) -> list[int]:
+
+    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
         if not root:
             return []
-        
         result = []
         queue = deque([root])
-        
         while queue:
             for i in range(len(queue)):
                 node = queue.popleft()
@@ -26,5 +28,4 @@ class Solution:
                     queue.append(node.right)
                 if node.left:
                     queue.append(node.left)
-        
         return result

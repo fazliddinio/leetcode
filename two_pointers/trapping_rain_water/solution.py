@@ -1,23 +1,32 @@
-# LeetCode 42: Trapping Rain Water
-# Time: O(n), Space: O(1)
+"""
+Trapping Rain Water
+LeetCode 42
+
+Approach: Two Pointers
+Time: O(n) — single pass from both ends
+Space: O(1) — constant extra space for pointers and max trackers
+Brute: O(n) — precompute left_max and right_max arrays using O(n) space
+"""
+
+from typing import List
+
 
 class Solution:
-    def trap(self, height: list[int]) -> int:
+
+    def trap(self, height: List[int]) -> int:
         if not height:
             return 0
-        
-        l, r = 0, len(height) - 1
-        left_max, right_max = height[l], height[r]
+        left, right = 0, len(height) - 1
+        left_max, right_max = height[left], height[right]
         water = 0
-        
-        while l < r:
+
+        while left < right:
             if left_max < right_max:
-                l += 1
-                left_max = max(left_max, height[l])
-                water += left_max - height[l]
+                left += 1
+                left_max = max(left_max, height[left])
+                water += left_max - height[left]
             else:
-                r -= 1
-                right_max = max(right_max, height[r])
-                water += right_max - height[r]
-        
+                right -= 1
+                right_max = max(right_max, height[right])
+                water += right_max - height[right]
         return water

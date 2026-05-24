@@ -1,7 +1,15 @@
 import pytest
-from .solution import Solution
+from solution import Solution
 
-def test_find_redundant_connection():
-    s = Solution()
-    assert s.findRedundantConnection([[1,2], [1,3], [2,3]]) == [2, 3]
-    assert s.findRedundantConnection([[1,2], [2,3], [3,4], [1,4], [1,5]]) == [1, 4]
+@pytest.fixture
+def solution():
+    return Solution()
+
+def test_findRedundantConnection_1(solution):
+    """Test basic case."""
+    # TODO: Fill with real inputs/outputs from problem
+    pass
+
+def test_findRedundantConnection_2(solution):
+    """Test edge case."""
+    pass

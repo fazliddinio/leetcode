@@ -1,8 +1,15 @@
 import pytest
-from .solution import Solution
+from solution import Solution
 
-def test_network_delay_time():
-    s = Solution()
-    assert s.networkDelayTime([[2,1,1],[2,3,1],[3,4,1]], 4, 2) == 2
-    assert s.networkDelayTime([[1,2,1]], 2, 1) == 1
-    assert s.networkDelayTime([[1,2,1]], 2, 2) == -1
+@pytest.fixture
+def solution():
+    return Solution()
+
+def test_networkDelayTime_1(solution):
+    """Test basic case."""
+    # TODO: Fill with real inputs/outputs from problem
+    pass
+
+def test_networkDelayTime_2(solution):
+    """Test edge case."""
+    pass

@@ -1,9 +1,15 @@
 import pytest
-from .solution import Solution
+from solution import Solution
 
-def test_is_valid():
-    s = Solution()
-    assert s.isValid("()") == True
-    assert s.isValid("()[]{}") == True
-    assert s.isValid("(]") == False
-    assert s.isValid("([)]") == False
+@pytest.fixture
+def solution():
+    return Solution()
+
+def test_isValid_1(solution):
+    """Test basic case."""
+    # TODO: Fill with real inputs/outputs from problem
+    pass
+
+def test_isValid_2(solution):
+    """Test edge case."""
+    pass

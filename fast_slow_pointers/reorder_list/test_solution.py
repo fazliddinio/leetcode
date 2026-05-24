@@ -1,29 +1,57 @@
 import pytest
-from .solution import Solution, ListNode
+from solution import Solution, ListNode
 
-def create_linked_list(arr):
-    if not arr:
-        return None
-    head = ListNode(arr[0])
-    curr = head
-    for val in arr[1:]:
+@pytest.fixture
+def solution():
+    return Solution()
+
+def _build_list(values):
+    dummy = ListNode(0)
+    curr = dummy
+    for val in values:
         curr.next = ListNode(val)
         curr = curr.next
-    return head
+    return dummy.next
 
-def linked_list_to_list(head):
+def _to_list(head):
     res = []
-    while head:
-        res.append(head.val)
-        head = head.next
+    curr = head
+    while curr:
+        res.append(curr.val)
+        curr = curr.next
     return res
 
-def test_reorder_list():
-    s = Solution()
-    head = create_linked_list([1, 2, 3, 4])
-    s.reorderList(head)
-    assert linked_list_to_list(head) == [1, 4, 2, 3]
+def test_reorderList_example1(solution):
+    head1 = _build_list([1, 2, 3, 4])
+    head2 = _build_list([1, 2, 3, 4])
     
-    head = create_linked_list([1, 2, 3, 4, 5])
-    s.reorderList(head)
-    assert linked_list_to_list(head) == [1, 5, 2, 4, 3]
+    solution.reorderList(head1)
+    solution.reorderList_array(head2)
+    
+    assert _to_list(head1) == [1, 4, 2, 3]
+    assert _to_list(head2) == [1, 4, 2, 3]
+
+def test_reorderList_example2(solution):
+    head1 = _build_list([1, 2, 3, 4, 5])
+    head2 = _build_list([1, 2, 3, 4, 5])
+    
+    solution.reorderList(head1)
+    solution.reorderList_array(head2)
+    
+    assert _to_list(head1) == [1, 5, 2, 4, 3]
+    assert _to_list(head2) == [1, 5, 2, 4, 3]
+
+def test_reorderList_empty(solution):
+    solution.reorderList(None)
+    solution.reorderList_array(None)
+    # Does not crash
+    
+def test_reorderList_single(solution):
+    head1 = _build_list([1])
+    head2 = _build_list([1])
+    
+    solution.reorderList(head1)
+    solution.reorderList_array(head2)
+    
+    assert _to_list(head1) == [1]
+    assert _to_list(head2) == [1]

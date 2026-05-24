@@ -1,30 +1,43 @@
-# LeetCode 4: Median of Two Sorted Arrays
-# Time: O(log(min(m, n))), Space: O(1)
+"""
+Median of Two Sorted Arrays
+LeetCode 4
+
+Approach: Binary Search on Partition
+Time: O(log(min(m, n))) — binary search on the smaller array
+Space: O(1) — constant extra space
+Brute: O(m + n) — merge both arrays and find the median
+"""
+
+from typing import List
+
 
 class Solution:
-    def findMedianSortedArrays(self, nums1: list[int], nums2: list[int]) -> float:
+
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
         if len(nums1) > len(nums2):
-            nums1, nums2 = nums2, nums1
-        
-        m, n = len(nums1), len(nums2)
-        l, r = 0, m
-        
-        while l <= r:
-            i = (l + r) // 2
-            j = (m + n + 1) // 2 - i
+            return self.findMedianSortedArrays(nums2, nums1)
             
-            left1 = nums1[i - 1] if i > 0 else float('-inf')
-            right1 = nums1[i] if i < m else float('inf')
-            left2 = nums2[j - 1] if j > 0 else float('-inf')
-            right2 = nums2[j] if j < n else float('inf')
+        x, y = len(nums1), len(nums2)
+        low, high = 0, x
+        
+        while low <= high:
+            partitionX = (low + high) // 2
+            partitionY = (x + y + 1) // 2 - partitionX
             
-            if left1 <= right2 and left2 <= right1:
-                if (m + n) % 2 == 0:
-                    return (max(left1, left2) + min(right1, right2)) / 2
-                return max(left1, left2)
-            elif left1 > right2:
-                r = i - 1
+            maxLeftX = float('-inf') if partitionX == 0 else nums1[partitionX - 1]
+            minRightX = float('inf') if partitionX == x else nums1[partitionX]
+            
+            maxLeftY = float('-inf') if partitionY == 0 else nums2[partitionY - 1]
+            minRightY = float('inf') if partitionY == y else nums2[partitionY]
+            
+            if maxLeftX <= minRightY and maxLeftY <= minRightX:
+                if (x + y) % 2 == 0:
+                    return (max(maxLeftX, maxLeftY) + min(minRightX, minRightY)) / 2
+                else:
+                    return max(maxLeftX, maxLeftY)
+            elif maxLeftX > minRightY:
+                high = partitionX - 1
             else:
-                l = i + 1
-        
-        return 0.0
+                low = partitionX + 1
+                
+        raise ValueError('Input arrays are not sorted')
